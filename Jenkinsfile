@@ -56,8 +56,8 @@ node(jenkinsNode) {
     // }
 
     stage("Build") {
-      if (runNpmCommand("run build") != 0) {
-        error "npm run build failed!"
+      if (runNpmCommand("run prepare") != 0) {
+        error "npm run prepare failed!"
       }
     }
 
