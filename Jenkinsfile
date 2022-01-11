@@ -39,12 +39,6 @@ node(jenkinsNode) {
       runNpmCommand("install")
     }
 
-    stage("Unit tests") {
-      if (runNpmCommand("run test") != 0) {
-        error "Unit tests failed!"
-      }
-    }
-
     stage("Build") {
       if (runNpmCommand("run prepare") != 0) {
         error "npm run prepare failed!"
