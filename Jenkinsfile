@@ -67,6 +67,9 @@ node(jenkinsNode) {
 
     if (isMasterBranch) {
       stage('Publish') {
+          sh """
+              npm publish
+            """
         // withAWS(region: 'eu-west-1') {
         //   awsIdentity()
         //   s3Path = 'npm/zava-ui-toolkit/icons.tar'
