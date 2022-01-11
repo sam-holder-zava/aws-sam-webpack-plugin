@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                def nvmVersion = "0.34.0"
                 def nodeVersion = "12.19.0"
                 def nvmInstallURL = "https://raw.githubusercontent.com/creationix/nvm/v${nvmVersion}/install.sh"
                 def nvmNodeJsOrgMirror = "https://nodejs.org/dist"
