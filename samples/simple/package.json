@@ -1,0 +1,15 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "description": "Simple sample project using aws-sam-webpack-plugin",
+  "scripts": {},
+  "dependencies": {
+    "aws-sam-webpack-plugin": "file:../../"
+  },
+  "author": "Sam Holder",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.89",
+    "ts-loader": "^9.2.6"
+  }
+}
