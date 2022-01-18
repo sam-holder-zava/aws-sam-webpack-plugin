@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Sample project using aws-sam-webpack-plugin with multiple templates",
   "scripts": {
-    "build": "webpack-cli"
+    "build": "webpack-cli",
+    "clean": "npx rimraf **/.aws-sam"
   },
   "author": "Sam Holder",
   "license": "MIT",

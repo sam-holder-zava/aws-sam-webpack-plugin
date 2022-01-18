@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  nodejs-sam-bootstrap
+  SAM Template for nodejs-sam-bootstrap
+  
+Resources:
+  #####  Lambda Functions #####
+  SampleFunction1:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: sample1.handler
+      CodeUri: ./src
+      Runtime: nodejs12.x
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /sample1
+            Method: GET
+
+Outputs:
+  Sample1Api:
+    Description: "API Gateway endpoint URL to print Hello, World!"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/sample1/"

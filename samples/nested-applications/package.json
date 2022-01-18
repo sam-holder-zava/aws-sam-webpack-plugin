@@ -1,7 +1,7 @@
 {
-  "name": "simple",
+  "name": "multiple-templates",
   "version": "1.0.0",
-  "description": "Simple sample project using aws-sam-webpack-plugin",
+  "description": "Sample project using aws-sam-webpack-plugin with multiple templates",
   "scripts": {
     "build": "webpack-cli",
     "clean": "npx rimraf **/.aws-sam"
@@ -10,7 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.89",
-    "aws-sam-webpack-plugin": "^0.11.0",
+    "aws-sam-webpack-plugin": "file:../../",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
