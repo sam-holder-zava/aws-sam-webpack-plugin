@@ -17,16 +17,17 @@ interface IEntryPointMap {
   [pname: string]: string;
 }
 
-interface SamConfig {
+// Defines an entrypoint within the application.
+interface EntrypointConfig {
   buildRoot: string;
   entryPointName: string;
   outFile: string;
   projectKey: string;
-  samConfig: any;
   templateName: string;
 }
 
-interface NestedApplicationConfig {
+// Defines configuration relating to a template.
+interface TemplateConfig {
   buildRoot: string;
   samConfig: any;
 }
@@ -34,16 +35,16 @@ interface NestedApplicationConfig {
 interface IEntryForResult {
   entryPoints: IEntryPointMap;
   launchConfigs: any[];
-  samConfigs: SamConfig[];
-  applicationConfigs: NestedApplicationConfig[];
+  entrypointConfigs: EntrypointConfig[];
+  templateConfigs: TemplateConfig[];
 }
 
 class AwsSamPlugin {
   private static defaultTemplates = ["template.yaml", "template.yml"];
   private launchConfig: any;
   private options: AwsSamPluginOptions;
-  private samConfigs: SamConfig[];
-  private applicationConfigs: NestedApplicationConfig[];
+  private entrypointConfigs: EntrypointConfig[];
+  private templateConfigs: TemplateConfig[];
 
   constructor(options?: Partial<AwsSamPluginOptions>) {
     this.options = {
@@ -52,8 +53,8 @@ class AwsSamPlugin {
       vscodeDebug: true,
       ...options,
     };
-    this.samConfigs = [];
-    this.applicationConfigs = [];
+    this.entrypointConfigs = [];
+    this.templateConfigs = [];
   }
 
   // Returns the name of the SAM template file or null if it's not found
@@ -75,12 +76,12 @@ class AwsSamPlugin {
     projectTemplateName: string,
     projectTemplate: string,
     outFile: string,
-    nestedApplicationName: string|null
+    nestedApplicationName: string | null
   ): IEntryForResult {
     const entryPoints: IEntryPointMap = {};
     const launchConfigs: any[] = [];
-    const samConfigs: SamConfig[] = [];
-    const applicationConfigs: NestedApplicationConfig[] = [];
+    const entrypointConfigs: EntrypointConfig[] = [];
+    const templateConfigs: TemplateConfig[] = [];
     const nestedResults: IEntryForResult[] = [];
 
     const samConfig = yaml.load(projectTemplate, { filename: projectTemplateName, schema }) as any;
@@ -89,20 +90,26 @@ class AwsSamPlugin {
     const defaultHandler = samConfig.Globals?.Function?.Handler ?? null;
     const defaultCodeUri = samConfig.Globals?.Function?.CodeUri ?? null;
 
+
+    const buildDirectoryTarget = nestedApplicationName === null
+      ? `.aws-sam/build`
+      : `.aws-sam/build/${nestedApplicationName}`;
+    const buildRoot = projectPath === ""
+      ? `${buildDirectoryTarget}`
+      : `${projectPath}/${buildDirectoryTarget}`;
+    templateConfigs.push({
+      buildRoot: buildRoot,
+      samConfig: samConfig
+    });
+
     // Loop through all of the resources
     for (const resourceKey in samConfig.Resources) {
       const resource = samConfig.Resources[resourceKey];
 
-      const buildDirectoryTarget = nestedApplicationName === null
-        ? `.aws-sam/build`
-        : `.aws-sam/build/${nestedApplicationName}`;
-      const buildRoot = projectPath === "" 
-        ? `${buildDirectoryTarget}` 
-        : `${projectPath}/${buildDirectoryTarget}`;
-
       if (resource.Type === "AWS::Serverless::Application") {
         const nestedPath = path.relative(projectPath ?? '.', path.dirname(resource.Properties.Location));
         const nestedTemplate = path.relative(projectPath ?? '.', resource.Properties.Location);
+        console.log('application: '+resourceKey)
         nestedResults.push(this.entryFor(
           resourceKey,
           nestedPath,
@@ -113,10 +120,6 @@ class AwsSamPlugin {
         ));
         // Point to new template generated for nested application.
         samConfig.Resources[resourceKey].Properties.Location = path.join('.', resourceKey, 'template.yaml');
-        applicationConfigs.push({
-          buildRoot: buildRoot,
-          samConfig: samConfig
-        });
       }
       // Correct paths for files that can be uploaded using "aws couldformation package"
       if (resource.Type === "AWS::ApiGateway::RestApi" && typeof resource.Properties.BodyS3Location === "string") {
@@ -277,29 +280,28 @@ class AwsSamPlugin {
         entryPoints[entryPointName] = fileBase;
         samConfig.Resources[resourceKey].Properties.CodeUri = resourceKey;
         samConfig.Resources[resourceKey].Properties.Handler = `${outFile}.${handlerComponents[1]}`;
-        
-        samConfigs.push({
+
+        entrypointConfigs.push({
           buildRoot,
           entryPointName,
           outFile: `./${buildRoot}/${resourceKey}/${outFile}.js`,
           projectKey,
-          samConfig,
           templateName: projectTemplateName,
         });
       }
     }
 
     return this.merge(
-        [{ entryPoints, launchConfigs, samConfigs, applicationConfigs }]
-          .concat(nestedResults)
+      [{ entryPoints, launchConfigs, entrypointConfigs, templateConfigs }]
+        .concat(nestedResults)
     );
   }
 
   private merge(results: IEntryForResult[]): IEntryForResult {
     const entryPoints: IEntryPointMap = {};
     const launchConfigs: any[] = [];
-    const samConfigs: SamConfig[] = [];
-    const applicationConfigs: NestedApplicationConfig[] = [];
+    const entrypointConfigs: EntrypointConfig[] = [];
+    const applicationConfigs: TemplateConfig[] = [];
     for (let result of results) {
       for (let key of Object.keys(result.entryPoints)) {
         entryPoints[key] = result.entryPoints[key];
@@ -307,14 +309,14 @@ class AwsSamPlugin {
       for (let launchConfig of result.launchConfigs) {
         launchConfigs.push(launchConfig);
       }
-      for (let samConfig of result.samConfigs) {
-        samConfigs.push(samConfig);
+      for (let samConfig of result.entrypointConfigs) {
+        entrypointConfigs.push(samConfig);
       }
-      for (let nestedApplicationConfig of result.applicationConfigs) {
+      for (let nestedApplicationConfig of result.templateConfigs) {
         applicationConfigs.push(nestedApplicationConfig);
       }
     }
-    return { entryPoints, launchConfigs, samConfigs, applicationConfigs };
+    return { entryPoints, launchConfigs, entrypointConfigs, templateConfigs: applicationConfigs };
   }
 
   public entry() {
@@ -324,7 +326,7 @@ class AwsSamPlugin {
       version: "0.2.0",
       configurations: [],
     };
-    this.samConfigs = [];
+    this.entrypointConfigs = [];
 
     // The name of the out file
     const outFile = this.options.outFile;
@@ -347,7 +349,7 @@ class AwsSamPlugin {
       }
 
       // Retrieve the entry points, VS Code debugger launch configs and SAM config for this entry
-      const { entryPoints, launchConfigs, samConfigs, applicationConfigs } = this.entryFor(
+      const { entryPoints, launchConfigs, entrypointConfigs: samConfigs, templateConfigs: applicationConfigs } = this.entryFor(
         projectKey,
         path.relative(".", path.dirname(projectTemplateName)),
         path.basename(projectTemplateName),
@@ -362,8 +364,8 @@ class AwsSamPlugin {
         ...entryPoints,
       };
       this.launchConfig.configurations = [...this.launchConfig.configurations, ...launchConfigs];
-      this.samConfigs = [...this.samConfigs, ...samConfigs];
-      this.applicationConfigs = [...this.applicationConfigs, ...applicationConfigs];
+      this.entrypointConfigs = [...this.entrypointConfigs, ...samConfigs];
+      this.templateConfigs = [...this.templateConfigs, ...applicationConfigs];
     }
 
     // Once we're done return the entry points
@@ -371,36 +373,32 @@ class AwsSamPlugin {
   }
 
   public filename(chunkData: any) {
-    const samConfig = this.samConfigs.find((c) => c.entryPointName === chunkData.chunk.name);
+    const samConfig = this.entrypointConfigs.find((c) => c.entryPointName === chunkData.chunk.name);
     if (!samConfig) {
       throw new Error(`Unable to find filename for ${chunkData.chunk.name}`);
     }
     return samConfig.outFile;
   }
 
+  private getTemplateOutputs(): Record<string, any> {
+    return this.templateConfigs.reduce((a, e) => {
+      const { buildRoot, samConfig } = e;
+      a[buildRoot] = samConfig;
+      return a;
+    }, {} as Record<string, any>);
+  }
+
   public apply(compiler: any) {
     compiler.hooks.afterEmit.tap("SamPlugin", (_compilation: any) => {
-      if (!(this.samConfigs && this.launchConfig)) {
+      if (!(this.entrypointConfigs && this.launchConfig)) {
         throw new Error("It looks like AwsSamPlugin.entry() was not called");
       }
-      const yamlUnique = this.samConfigs.reduce((a, e) => {
-        const { buildRoot, samConfig } = e;
-        a[buildRoot] = samConfig;
-        return a;
-      }, {} as Record<string, any>);
-      for (const buildRoot in yamlUnique) {
-        const samConfig = yamlUnique[buildRoot];
-        fs.writeFileSync(`${buildRoot}/template.yaml`, yaml.dump(samConfig, { indent: 2, quotingType: '"', schema }));
-      }
 
-
-      const nestedApplicationYamlUnique = this.applicationConfigs.reduce((a, e) => {
-        const { buildRoot, samConfig } = e;
-        a[buildRoot] = samConfig;
-        return a;
-      }, {} as Record<string, any>);
-      for (const buildRoot in nestedApplicationYamlUnique) {
-        const samConfig = nestedApplicationYamlUnique[buildRoot];
+      const outputs = this.getTemplateOutputs();
+      console.log('outputs: ');
+      console.log(outputs);
+      for (const buildRoot in outputs) {
+        const samConfig = outputs[buildRoot];
         if (!fs.existsSync(buildRoot)) {
           fs.mkdirSync(buildRoot, { recursive: true });
         }

@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Samples
+**/.aws-sam
+**/.vscode
+**/.DS_Store
