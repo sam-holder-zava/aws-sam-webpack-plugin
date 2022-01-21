@@ -485,7 +485,7 @@ describe("SAM config entryPointName:", () => {
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
 
-    expect(entries.samConfigs[0].entryPointName).toEqual("MyLambda");
+    expect(entries.entrypointConfigs[0].entryPointName).toEqual("MyLambda");
   });
 
   test("is prefixed when the projectKey isn't 'default'", () => {
@@ -507,7 +507,7 @@ describe("SAM config entryPointName:", () => {
   `;
     const entries = plugin.entryFor("xxx", "", "template.yaml", template, "app", null);
 
-    expect(entries.samConfigs[0].entryPointName).toEqual("xxx#MyLambda");
+    expect(entries.entrypointConfigs[0].entryPointName).toEqual("xxx#MyLambda");
   });
 });
 
@@ -594,7 +594,7 @@ describe("When the template is in a subfolder", () => {
         Handler: app.handler
   `;
     const entries = plugin.entryFor("xxx", "xxx", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0].buildRoot).toEqual("xxx/.aws-sam/build");
+    expect(entries.templateConfigs[0].buildRoot).toEqual("xxx/.aws-sam/build");
   });
 
   test("it sets the SAM config outFile correctly", () => {
@@ -615,7 +615,7 @@ describe("When the template is in a subfolder", () => {
         Handler: app.handler
   `;
     const entries = plugin.entryFor("xxx", "xxx", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0].outFile).toEqual("./xxx/.aws-sam/build/MyLambda/app.js");
+    expect(entries.entrypointConfigs[0].outFile).toEqual("./xxx/.aws-sam/build/MyLambda/app.js");
   });
 });
 
@@ -682,7 +682,7 @@ describe("Property paths are rewritten correctly", () => {
         BodyS3Location: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.BodyS3Location).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.BodyS3Location).toEqual(
       "../../path/to/file"
     );
   });
@@ -707,7 +707,7 @@ describe("Property paths are rewritten correctly", () => {
         Code: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Code).toEqual("../../path/to/file");
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Code).toEqual("../../path/to/file");
   });
 
   test("DefinitionS3Location property for the AWS::AppSync::GraphQLSchema resource", () => {
@@ -730,7 +730,7 @@ describe("Property paths are rewritten correctly", () => {
         DefinitionS3Location: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
       "../../path/to/file"
     );
   });
@@ -756,7 +756,7 @@ describe("Property paths are rewritten correctly", () => {
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
     expect(
-      entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.RequestMappingTemplateS3Location
+      entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.RequestMappingTemplateS3Location
     ).toEqual("../../path/to/file");
   });
 
@@ -781,7 +781,7 @@ describe("Property paths are rewritten correctly", () => {
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
     expect(
-      entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.ResponseMappingTemplateS3Location
+      entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.ResponseMappingTemplateS3Location
     ).toEqual("../../path/to/file");
   });
 
@@ -805,7 +805,7 @@ describe("Property paths are rewritten correctly", () => {
         DefinitionUri: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionUri).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionUri).toEqual(
       "../../path/to/file"
     );
   });
@@ -830,7 +830,7 @@ describe("Property paths are rewritten correctly", () => {
         Location: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Location).toEqual("../../path/to/file");
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Location).toEqual("../../path/to/file");
   });
 
   test("SourceBundle property for the AWS::ElasticBeanstalk::ApplicationVersion resource", () => {
@@ -853,7 +853,7 @@ describe("Property paths are rewritten correctly", () => {
         SourceBundle: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.SourceBundle).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.SourceBundle).toEqual(
       "../../path/to/file"
     );
   });
@@ -878,7 +878,7 @@ describe("Property paths are rewritten correctly", () => {
         TemplateURL: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.TemplateURL).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.TemplateURL).toEqual(
       "../../path/to/file"
     );
   });
@@ -904,7 +904,7 @@ describe("Property paths are rewritten correctly", () => {
           ScriptLocation: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Command?.ScriptLocation).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Command?.ScriptLocation).toEqual(
       "../../path/to/file"
     );
   });
@@ -929,7 +929,7 @@ Resources:
       DefinitionS3Location: path/to/file
 `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
       "../../path/to/file"
     );
   });
@@ -957,7 +957,7 @@ describe("Property paths are not re-written when they are objects", () => {
           Bucket: bucketname
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.BodyS3Location).toEqual({
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.BodyS3Location).toEqual({
       Bucket: "bucketname",
     });
   });
@@ -983,7 +983,7 @@ describe("Property paths are not re-written when they are objects", () => {
           S3Bucket: bucketname
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Code).toEqual({
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Code).toEqual({
       S3Bucket: "bucketname",
     });
   });
@@ -1008,7 +1008,7 @@ describe("Property paths are not re-written when they are objects", () => {
         DefinitionS3Location: s3://path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual(
       "s3://path/to/file"
     );
   });
@@ -1034,7 +1034,7 @@ describe("Property paths are not re-written when they are objects", () => {
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
     expect(
-      entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.RequestMappingTemplateS3Location
+      entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.RequestMappingTemplateS3Location
     ).toEqual("s3://path/to/file");
   });
 
@@ -1059,7 +1059,7 @@ describe("Property paths are not re-written when they are objects", () => {
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
     expect(
-      entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.ResponseMappingTemplateS3Location
+      entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.ResponseMappingTemplateS3Location
     ).toEqual("s3://path/to/file");
   });
 
@@ -1084,7 +1084,7 @@ describe("Property paths are not re-written when they are objects", () => {
         DefinitionUri: path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionUri).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionUri).toEqual(
       "../../path/to/file"
     );
   });
@@ -1109,7 +1109,7 @@ describe("Property paths are not re-written when they are objects", () => {
         Location: s3://path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Location).toEqual("s3://path/to/file");
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Location).toEqual("s3://path/to/file");
   });
 
   test("SourceBundle property for the AWS::ElasticBeanstalk::ApplicationVersion resource", () => {
@@ -1133,7 +1133,7 @@ describe("Property paths are not re-written when they are objects", () => {
           S3Bucket: bucketname
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.SourceBundle).toEqual({
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.SourceBundle).toEqual({
       S3Bucket: "bucketname",
     });
   });
@@ -1158,7 +1158,7 @@ describe("Property paths are not re-written when they are objects", () => {
         TemplateURL: s3://path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.TemplateURL).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.TemplateURL).toEqual(
       "s3://path/to/file"
     );
   });
@@ -1184,7 +1184,7 @@ describe("Property paths are not re-written when they are objects", () => {
           ScriptLocation: s3://path/to/file
   `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Command?.ScriptLocation).toEqual(
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.Command?.ScriptLocation).toEqual(
       "s3://path/to/file"
     );
   });
@@ -1210,7 +1210,7 @@ Resources:
         Bucket: bucketname
 `;
     const entries = plugin.entryFor("default", "", "template.yaml", template, "app", null);
-    expect(entries.samConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual({
+    expect(entries.templateConfigs[0]?.samConfig?.Resources?.MyResource?.Properties?.DefinitionS3Location).toEqual({
       Bucket: "bucketname",
     });
   });

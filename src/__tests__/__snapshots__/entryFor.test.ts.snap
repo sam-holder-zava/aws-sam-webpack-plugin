@@ -2,10 +2,17 @@
 
 exports[`Function CodeUri can be set at the function 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -27,12 +34,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -47,7 +51,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -55,10 +58,17 @@ Object {
 
 exports[`Function CodeUri can be set global or at the function 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -80,12 +90,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -105,7 +112,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -113,10 +119,17 @@ Object {
 
 exports[`Function CodeUri can be set globally 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -138,12 +151,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -163,7 +173,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -171,10 +180,17 @@ Object {
 
 exports[`Function Handler can be set at the function 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -196,12 +212,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -216,7 +229,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -224,10 +236,17 @@ Object {
 
 exports[`Function Handler can be set global and at function 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -249,12 +268,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -274,7 +290,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -282,10 +297,17 @@ Object {
 
 exports[`Function Handler can be set globally 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -307,12 +329,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -332,7 +351,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -340,10 +358,17 @@ Object {
 
 exports[`Function Runtime can be set at the function to nodejs10.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -365,12 +390,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -385,7 +407,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -393,10 +414,17 @@ Object {
 
 exports[`Function Runtime can be set at the function to nodejs12.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -418,12 +446,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -438,7 +463,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -446,10 +470,17 @@ Object {
 
 exports[`Function Runtime can be set at the function to nodejs14.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -471,12 +502,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -491,7 +519,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -499,10 +526,17 @@ Object {
 
 exports[`Function Runtime can be set global and at function 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -524,12 +558,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -549,7 +580,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -557,10 +587,17 @@ Object {
 
 exports[`Function Runtime can be set globally to nodejs10.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -582,12 +619,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -606,7 +640,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -614,10 +647,17 @@ Object {
 
 exports[`Function Runtime can be set globally to nodejs12.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -639,12 +679,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -663,7 +700,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -671,10 +707,17 @@ Object {
 
 exports[`Function Runtime can be set globally to nodejs14.x 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -696,12 +739,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -720,7 +760,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -728,10 +767,17 @@ Object {
 
 exports[`It ignores non AWS::Serverless::Function resosurces 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/app.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -753,12 +799,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/app.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Resources": Object {
@@ -776,7 +819,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -784,10 +826,17 @@ Object {
 
 exports[`JS output files uses outFile parameter 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "MyLambda": "./src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": ".aws-sam/build",
+      "entryPointName": "MyLambda",
+      "outFile": "./.aws-sam/build/MyLambda/index.js",
+      "projectKey": "default",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -809,12 +858,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": ".aws-sam/build",
-      "entryPointName": "MyLambda",
-      "outFile": "./.aws-sam/build/MyLambda/index.js",
-      "projectKey": "default",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -833,7 +879,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }
@@ -841,10 +886,17 @@ Object {
 
 exports[`When the template is in a subfolder it should match the happy snapshot 1`] = `
 Object {
-  "applicationConfigs": Array [],
   "entryPoints": Object {
     "xxx#MyLambda": "./xxx/src/my-lambda/app",
   },
+  "entrypointConfigs": Array [
+    Object {
+      "buildRoot": "xxx/.aws-sam/build",
+      "entryPointName": "xxx#MyLambda",
+      "outFile": "./xxx/.aws-sam/build/MyLambda/app.js",
+      "projectKey": "xxx",
+    },
+  ],
   "launchConfigs": Array [
     Object {
       "address": "localhost",
@@ -866,12 +918,9 @@ Object {
       "type": "node",
     },
   ],
-  "samConfigs": Array [
+  "templateConfigs": Array [
     Object {
       "buildRoot": "xxx/.aws-sam/build",
-      "entryPointName": "xxx#MyLambda",
-      "outFile": "./xxx/.aws-sam/build/MyLambda/app.js",
-      "projectKey": "xxx",
       "samConfig": Object {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Globals": Object {
@@ -890,7 +939,6 @@ Object {
         },
         "Transform": "AWS::Serverless-2016-10-31",
       },
-      "templateName": "template.yaml",
     },
   ],
 }

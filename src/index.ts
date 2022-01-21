@@ -23,7 +23,6 @@ interface EntrypointConfig {
   entryPointName: string;
   outFile: string;
   projectKey: string;
-  templateName: string;
 }
 
 // Defines configuration relating to a template.
@@ -285,8 +284,7 @@ class AwsSamPlugin {
           buildRoot,
           entryPointName,
           outFile: `./${buildRoot}/${resourceKey}/${outFile}.js`,
-          projectKey,
-          templateName: projectTemplateName,
+          projectKey
         });
       }
     }
